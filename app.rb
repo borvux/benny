@@ -2,7 +2,7 @@ require "sinatra"
 require "sinatra/reloader"
 require "http"
 require "json"
-require "sinatra/activerecord"
+# require "sinatra/activerecord"
 
 get("/") do
   gmaps_api_key = ENV.fetch("GMAPS_KEY")
