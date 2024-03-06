@@ -7,29 +7,55 @@ get("/") do
   gmaps_api_key = ENV.fetch("GMAPS_KEY")
   pirate_weather_api_key = ENV.fetch("PIRATE_WEATHER_KEY")
   
-  # google maps api request
+  # Google Maps API request
   google_maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=wheaton&key=#{gmaps_api_key}"
-
-  # getting to the latitude and longtitude
   raw_google_maps_data = HTTP.get(google_maps_url)
   parsed_google_maps_data = JSON.parse(raw_google_maps_data)
-  results_array = parsed_google_maps_data.fetch("results")
-  first_result_hash = results_array.at(0)
-  geometry_hash = first_result_hash.fetch("geometry")
-  location_hash = geometry_hash.fetch("location")
 
-  # getting the location of wheaton
-  latitude = location_hash.fetch("lat")
-  longitude = location_hash.fetch("lng")
+  # Check if Google Maps API response contains valid data
+  if parsed_google_maps_data.key?("results") && !parsed_google_maps_data["results"].empty?
+    results_array = parsed_google_maps_data.fetch("results")
+    first_result_hash = results_array.at(0)
+    geometry_hash = first_result_hash.fetch("geometry")
+    location_hash = geometry_hash.fetch("location")
+    latitude = location_hash.fetch("lat")
+    longitude = location_hash.fetch("lng")
+  else
+    @output = "Seems like the Google Maps API is down. Please try refreshing the page."
+  end
 
-  # pirate weather api request
+  # Pirate Weather API request
   pirate_weather_url = "https://api.pirateweather.net/forecast/#{pirate_weather_api_key}/#{latitude},#{longitude}"
-
-  # getting the weather at wehaton
   raw_pirate_weather_data = HTTP.get(pirate_weather_url)
   parsed_pirate_weather_data = JSON.parse(raw_pirate_weather_data)
-  currently_hash = parsed_pirate_weather_data.fetch("currently")
-  @temperature = currently_hash.fetch("temperature")
+
+  # to check if the currently exist
+  if parsed_pirate_weather_data.key?("currently")
+    currently_hash = parsed_pirate_weather_data.fetch("currently")
+    @temperature = currently_hash.fetch("temperature")
+    @current_summary = currently_hash.fetch("summary").downcase
+  else
+    @output = "Seems like either the Google Map API or Pirate Weather API is down, sorry for inconvience, please try refreshing the page"
+  end
+  
+  # check to see if it is raining
+  if @current_summary == "rain"
+    @output = "It is #{@temperature}* and it's #{@current_summary}, seems like I need an umbrella."
+  else
+    @output = "It is #{@temperature}* and it's #{@current_summary}, seems like I won't need an umbrella."
+  end
 
   erb(:homepage)
+end
+
+get("/project1") do
+  erb(:project1)
+end
+
+get("/project2") do
+  erb(:project2)
+end
+
+get("/project3") do
+  erb(:project3)
 end
