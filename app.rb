@@ -5,25 +5,28 @@ require "json"
 # require "sinatra/activerecord"
 
 get("/") do
-  gmaps_api_key = ENV.fetch("GMAPS_KEY")
+  # gmaps_api_key = ENV.fetch("GMAPS_KEY")
   pirate_weather_api_key = ENV.fetch("PIRATE_WEATHER_KEY")
   
-  # Google Maps API request
-  google_maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=wheaton&key=#{gmaps_api_key}"
-  raw_google_maps_data = HTTP.get(google_maps_url)
-  parsed_google_maps_data = JSON.parse(raw_google_maps_data)
+  # # Google Maps API request
+  # google_maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=wheaton&key=#{gmaps_api_key}"
+  # raw_google_maps_data = HTTP.get(google_maps_url)
+  # parsed_google_maps_data = JSON.parse(raw_google_maps_data)
 
-  # Check if Google Maps API response contains valid data
-  if parsed_google_maps_data.key?("results") && !parsed_google_maps_data["results"].empty?
-    results_array = parsed_google_maps_data.fetch("results")
-    first_result_hash = results_array.at(0)
-    geometry_hash = first_result_hash.fetch("geometry")
-    location_hash = geometry_hash.fetch("location")
-    latitude = location_hash.fetch("lat")
-    longitude = location_hash.fetch("lng")
-  else
-    @output = "Seems like the Google Maps API is down. Please try refreshing the page."
-  end
+  # # Check if Google Maps API response contains valid data
+  # if parsed_google_maps_data.key?("results") && !parsed_google_maps_data["results"].empty?
+  #   results_array = parsed_google_maps_data.fetch("results")
+  #   first_result_hash = results_array.at(0)
+  #   geometry_hash = first_result_hash.fetch("geometry")
+  #   location_hash = geometry_hash.fetch("location")
+  #   latitude = location_hash.fetch("lat")
+  #   longitude = location_hash.fetch("lng")
+  # else
+  #   @output = "Seems like the Google Maps API is down. Please try refreshing the page."
+  # end
+
+  latitude = 41.8183339
+  longitude =  -88.1515551
 
   # Pirate Weather API request
   pirate_weather_url = "https://api.pirateweather.net/forecast/#{pirate_weather_api_key}/#{latitude},#{longitude}"
