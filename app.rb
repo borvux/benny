@@ -6,7 +6,6 @@ require "json"
 
 get("/") do
   # gmaps_api_key = ENV.fetch("GMAPS_KEY")
-  pirate_weather_api_key = ENV["PIRATE_WEATHER_KEY"]
   
   # # Google Maps API request
   # google_maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=wheaton&key=#{gmaps_api_key}"
@@ -25,6 +24,7 @@ get("/") do
   #   @output = "Seems like the Google Maps API is down. Please try refreshing the page."
   # end
 
+  pirate_weather_api_key = ENV["PIRATE_WEATHER_KEY"]
   latitude = 41.8183339
   longitude =  -88.1515551
 
