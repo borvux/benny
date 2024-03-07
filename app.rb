@@ -25,8 +25,8 @@ get("/") do
   #   @output = "Seems like the Google Maps API is down. Please try refreshing the page."
   # end
 
-  # latitude = 41.8183339
-  # longitude =  -88.1515551
+  latitude = 41.8183339
+  longitude =  -88.1515551
 
   # Pirate Weather API request
   pirate_weather_url = "https://api.pirateweather.net/forecast/#{pirate_weather_api_key}/#{latitude},#{longitude}"
