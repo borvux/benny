@@ -6,7 +6,7 @@ require "json"
 
 get("/") do
   # gmaps_api_key = ENV.fetch("GMAPS_KEY")
-  #pirate_weather_api_key = ENV.fetch("PIRATE_WEATHER_KEY")
+  pirate_weather_api_key = ENV.fetch("PIRATE_WEATHER_KEY")
   
   # # Google Maps API request
   # google_maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=wheaton&key=#{gmaps_api_key}"
