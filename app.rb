@@ -2,28 +2,8 @@ require "sinatra"
 require "sinatra/reloader"
 require "http"
 require "json"
-# require "sinatra/activerecord"
 
 get("/") do
-  # gmaps_api_key = ENV.fetch("GMAPS_KEY")
-  
-  # # Google Maps API request
-  # google_maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=wheaton&key=#{gmaps_api_key}"
-  # raw_google_maps_data = HTTP.get(google_maps_url)
-  # parsed_google_maps_data = JSON.parse(raw_google_maps_data)
-
-  # # Check if Google Maps API response contains valid data
-  # if parsed_google_maps_data.key?("results") && !parsed_google_maps_data["results"].empty?
-  #   results_array = parsed_google_maps_data.fetch("results")
-  #   first_result_hash = results_array.at(0)
-  #   geometry_hash = first_result_hash.fetch("geometry")
-  #   location_hash = geometry_hash.fetch("location")
-  #   latitude = location_hash.fetch("lat")
-  #   longitude = location_hash.fetch("lng")
-  # else
-  #   @output = "Seems like the Google Maps API is down. Please try refreshing the page."
-  # end
-
   pirate_weather_api_key = ENV["PIRATE_WEATHER_KEY"]
   latitude = 41.8183339
   longitude =  -88.1515551
@@ -48,9 +28,6 @@ get("/") do
   else
     @output = "It is #{@temperature}* and it's #{@current_summary}, seems like I won't need an umbrella."
   end
-
-  #@output = "helloworld"
-
   erb(:homepage)
 end
 
