@@ -20,7 +20,25 @@
   height: auto;
 }
 
-#home-content {
+#about-me {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+}
+
+#work {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+}
+
+#projects {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+}
+
+#contact {
   min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
